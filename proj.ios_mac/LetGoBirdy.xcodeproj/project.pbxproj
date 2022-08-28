@@ -44,6 +44,7 @@
 		7FFE4D681EAE42AE00C41067 /* imageGameScene in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE4D631EAE42AE00C41067 /* imageGameScene */; };
 		7FFE4D691EAE42AE00C41067 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE4D641EAE42AE00C41067 /* sound */; };
 		7FFE4D6A1EAE42AE00C41067 /* spincharacter in Resources */ = {isa = PBXBuildFile; fileRef = 7FFE4D651EAE42AE00C41067 /* spincharacter */; };
+		8659E83428BBB9F500752E89 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8659E83328BBB9F500752E89 /* Images.xcassets */; };
 		86883ED228B66C2400E2F063 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86883ED128B66C2400E2F063 /* UIKit.framework */; };
 		86883ED428B66C2E00E2F063 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86883ED328B66C2E00E2F063 /* OpenGLES.framework */; };
 		86883ED628B66C3E00E2F063 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86883ED528B66C3E00E2F063 /* CoreText.framework */; };
@@ -170,6 +171,7 @@
 		7FFE4DB41EAE438A00C41067 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8659E82E28BB7D6400752E89 /* GameDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameDelegate.h; sourceTree = "<group>"; };
+		8659E83328BBB9F500752E89 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LetGoBirdy/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		86883E9C28B66AA600E2F063 /* b2World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2World.h; sourceTree = "<group>"; };
 		86883E9E28B66AA600E2F063 /* b2ContactSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2ContactSolver.h; sourceTree = "<group>"; };
 		86883E9F28B66AA600E2F063 /* b2ChainAndCircleContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2ChainAndCircleContact.h; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8659E83328BBB9F500752E89 /* Images.xcassets */,
 				7FFE4D611EAE42AE00C41067 /* buttonImage */,
 				7FFE4D621EAE42AE00C41067 /* homeImage */,
 				7FFE4D631EAE42AE00C41067 /* imageGameScene */,
@@ -720,6 +723,7 @@
 				7FFE4D691EAE42AE00C41067 /* sound in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
+				8659E83428BBB9F500752E89 /* Images.xcassets in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				7FFE4D581EAE427E00C41067 /* Default-Landscape~ipad.png in Resources */,
@@ -789,6 +793,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -834,6 +839,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
