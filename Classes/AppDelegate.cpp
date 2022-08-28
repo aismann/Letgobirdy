@@ -2,23 +2,17 @@
 #include "HomeScene.h"
 #include "AndroidScene.h"
 #include "SimpleAudioEngine.h"
-#include "Admob.h"
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(640, 960);
 
-AppDelegate::AppDelegate() {
-    
-}
+AppDelegate::AppDelegate() {}
 
-AppDelegate::~AppDelegate()
-{
-}
+AppDelegate::~AppDelegate() {}
 
 //if you want a different context,just modify the value of glContextAttrs
 //it will takes effect on all platforms
-void AppDelegate::initGLContextAttrs()
-{
+void AppDelegate::initGLContextAttrs() {
     //set OpenGL context attributions,now can only set six attributions:
     //red,green,blue,alpha,depth,stencil
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
@@ -70,7 +64,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
     
 #if  CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-     Admob::getInstance()->init("ca-app-pub-6021678406318751/8945150227","ca-app-pub-6021678406318751/7468417022");
     auto scene = HomeScene::createHomeScene();
 #endif
 #if  CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID

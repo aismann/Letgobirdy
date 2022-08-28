@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "8978B8D7-FD46-4895-8CAF-C7FE36377BD8"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1167ECAF-C77D-4F18-B965-B23BEF3C66B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/Layer/MainLayer.cpp"
+            startingColumnNumber = "19"
+            endingColumnNumber = "19"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "MainLayer::update(dt)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
