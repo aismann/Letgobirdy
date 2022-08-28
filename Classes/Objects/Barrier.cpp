@@ -69,15 +69,6 @@ void Barrier::runActionWhenContactWithCharacter() {
   this->runAction(Sequence::create(action1, action2, NULL));
 }
 
-
-void Barrier::onEnter() {
-  BaseObject::onEnter();
-}
-
-void Barrier::onExit() {
-  BaseObject::onExit();
-}
-
 void Barrier::makeAsPassedBarrier() {
   b2Filter filter = bodyBarrier->GetFixtureList()[0].GetFilterData();
   filter.categoryBits = kPassedBarrierCatBit;

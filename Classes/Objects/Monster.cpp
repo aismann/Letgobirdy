@@ -44,14 +44,13 @@ void Monster::addPrisoner(){
 
 void Monster::update(float dt) {
   if(isStaticMonster == true) { return; }
-  
   if(isFirstRunning) {
     if(this->getPositionX() > Director::getInstance()->getWinSize().width/2) {
-      this->setPositionX(this->getPositionX() +  veloCity);
+      this->setPositionX(this->getPositionX() + veloCity);
       this->setScaleX(1);
     }
     if(this->getPositionX() <= Director::getInstance()->getWinSize().width/2){
-      this->setPositionX(this->getPositionX() -  veloCity);
+      this->setPositionX(this->getPositionX() - veloCity);
       this->setScaleX(-1);
     }
     if(this->getPositionX() < - this->getContentSize().width/2 ||
@@ -88,7 +87,7 @@ void Monster::initMonsterWithSpine() {
   if (type == 0) {
     spine::SkeletonAnimation* skeletonNode = spine::SkeletonAnimation::createWithJsonFile("cat.json",
                                                                                           "cat.atlas",
-                                                                                          RATIO_SCALE_MONSTER);
+                                                                                          RATIO_SCALE_MONSTER_SKELETON);
     skeletonNode->clearTrack();
     skeletonNode->setAnimation(0, "walk", true);
     this->addChild(skeletonNode);
@@ -97,7 +96,7 @@ void Monster::initMonsterWithSpine() {
   if(type == 1){
     spine::SkeletonAnimation* skeletonNode = spine::SkeletonAnimation::createWithJsonFile("pig.json",
                                                                                           "pig.atlas",
-                                                                                          RATIO_SCALE_MONSTER);
+                                                                                          RATIO_SCALE_MONSTER_SKELETON);
     skeletonNode->clearTrack();
     skeletonNode->setAnimation(0, "walk", true);
     this->addChild(skeletonNode);

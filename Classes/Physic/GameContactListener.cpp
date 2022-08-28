@@ -49,7 +49,7 @@ void GameContactListener::BeginContact(b2Contact* contact) {
       if(objectBody->GetFixtureList()[0].GetFilterData().categoryBits == kGroundCatBit) {
         Character* character = (Character*)characterBody->GetUserData();
         character->contactWithGround();
-        if(delegate) { delegate->characterJumpFailed();}
+        if(delegate) { delegate->characterDoubleJumpFailed();}
       }
     }
   }
@@ -62,12 +62,9 @@ void GameContactListener::processCollisionPlayerVsObject(b2Body* characterBody, 
     barrier->runActionWhenContactWithCharacter();
     barrier->makeAsPassedBarrier();
     character->contactWithBarrier(true);
-    if(delegate) { delegate->characterJumpSuccess();}
+    if(delegate) { delegate->characterDoubleJumpSuccess();}
   } else {
     character->contactWithBarrier(false);
-    if(delegate) { delegate->characterJumpFailed();}
+    if(delegate) { delegate->characterDoubleJumpFailed();}
   }
 }
-
-void GameContactListener::EndContact(b2Contact* contact) {}
-void GameContactListener::PreSolve(b2Contact *contact, const b2Manifold *oldManifold) {}

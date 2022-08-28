@@ -12,7 +12,7 @@
 #include "SimpleAudioEngine.h"
 
 Character::Character() {
-  velocity = VELOCITY_CHARACTER;
+  velocity = RUN_VELOCITY_CHARACTER;
   status = RUNNING;
   runningDirection = LEFT_RIGHT;
 }
@@ -26,9 +26,9 @@ void Character::setDelegate(GameDelegate* mDelegate) {
 void Character::update(float dt) {
   switch (status) {
     case RUNNING:
-      if (this->getPositionX() >= Director::getInstance()->getWinSize().width - (WIDTH_RUN_BUFFER)) {
+      if (this->getPositionX() >= Director::getInstance()->getWinSize().width - (X_MIN_POSITION_CHANGE_DIRECTION)) {
         runningDirection = RIGHT_LEFT;
-      } else if(this->getPositionX() <= (WIDTH_RUN_BUFFER)) {
+      } else if(this->getPositionX() <= (X_MIN_POSITION_CHANGE_DIRECTION)) {
         runningDirection = LEFT_RIGHT;
       }
       if (runningDirection == RIGHT_LEFT) {
@@ -39,13 +39,12 @@ void Character::update(float dt) {
         this->setScaleX(1);
       }
       bodyCharacter->SetTransform(b2Vec2(this->getPositionX()/PTM_RATIO,
-                                         (this->getPositionY() + BUFFER_SIZE_HEIGHT/2)/PTM_RATIO), 0.0f);
+                                         (this->getPositionY() + RADIUS_PHYSIC_CHARACTER/2)/PTM_RATIO), 0.0f);
       break;
     case JUMPING:
       this->setPosition(Vec2(bodyCharacter->GetPosition().x*PTM_RATIO,
-                             (bodyCharacter->GetPosition().y)*PTM_RATIO - BUFFER_SIZE_HEIGHT/2));
-    default:
-      break;
+                             (bodyCharacter->GetPosition().y)*PTM_RATIO - RADIUS_PHYSIC_CHARACTER/2));
+    default: break;
   }
 }
 
@@ -59,7 +58,9 @@ void Character::setNextPositionY(float yPosition) {
 
 void Character::singleJump() {
   if(bodyCharacter == NULL) { return; }
-  CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("jump.mp3");
+  if(UserDefault::getInstance()->getBoolForKey("SOUND_TURN_ON", true)) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("jump.mp3");
+  }
   skeletonCharacter->clearTrack();
   skeletonCharacter->setAnimation(0, "jump", false);
   
@@ -81,7 +82,7 @@ void Character::singleJump() {
 
 void Character::doubleJump() {
   if(bodyCharacter == NULL) { return; }
-  if(this->getPositionY() >= nextPositionY) {
+  if(this->getPositionY() >= nextPositionY - this->getContentSize().height) {
     b2Filter filter = bodyCharacter->GetFixtureList()[0].GetFilterData();
     filter.categoryBits = kJumpingCharacterCatBit;
     filter.maskBits = kJumpingCharacterMaskBit;
@@ -95,7 +96,7 @@ void Character::doubleJump() {
         break;
     }
   } else {
-    if(delegate) { delegate->characterJumpFailed(); }
+    if(delegate) { delegate->characterDoubleJumpFailed(); }
   }
 }
 
@@ -113,12 +114,10 @@ void Character::contactWithWall() {
   switch (runningDirection) {
     case RIGHT_LEFT:
       this->setScaleX(1);
-      bodyCharacter->SetLinearVelocity(b2Vec2(VELOCITY_JUMP_X*SCALE_X_BIRD, VELOCITY_JUMP_X*SCALE_Y_BIRD));
       runningDirection = LEFT_RIGHT;
       break;
     default:
       this->setScaleX(-1);
-      bodyCharacter->SetLinearVelocity(b2Vec2(-VELOCITY_JUMP_X*SCALE_X_BIRD, VELOCITY_JUMP_X*SCALE_Y_BIRD));
       runningDirection = RIGHT_LEFT;
       break;
   }
@@ -139,15 +138,16 @@ void Character::contactWithBarrier(bool isNextLevel) {
 void Character::dieCharacter() {
   skeletonCharacter->clearTrack();
   skeletonCharacter->setAnimation(0, "die", false);
-  status = DIE;
+  if(delegate) { delegate->gameOver(); }
 }
 
 bool Character::checkDieCharacter(const Vec2& position) {
   if(bodyCharacter == NULL) { return false;}
+  if(status == JUMPING) { return false;}
   Vec2 centerCharacter = Vec2(bodyCharacter->GetPosition().x*PTM_RATIO,
                               bodyCharacter->GetPosition().y*PTM_RATIO);
   float distance = centerCharacter.distance(position);
-  return distance < BUFFER_SIZE_HEIGHT + 10;
+  return distance < RADIUS_PHYSIC_CHARACTER + 10;
 }
 
 void Character::defineBodyCharacter(b2World* worldPhysic) {
@@ -155,7 +155,7 @@ void Character::defineBodyCharacter(b2World* worldPhysic) {
   characterBodyDef.type = b2_dynamicBody;
   characterBodyDef.userData = this;
   characterBodyDef.bullet = true;
-  characterBodyDef.position.Set((this->getPositionX())/PTM_RATIO ,(this->getPositionY() + BUFFER_SIZE_HEIGHT/2)/PTM_RATIO);
+  characterBodyDef.position.Set((this->getPositionX())/PTM_RATIO ,(this->getPositionY() + RADIUS_PHYSIC_CHARACTER/2)/PTM_RATIO);
   worldPhysicManger = worldPhysic;
   bodyCharacter = worldPhysicManger->CreateBody(&characterBodyDef);
   bodyCharacter->SetFixedRotation(false);
@@ -173,7 +173,7 @@ void Character::defineBodyCharacter(b2World* worldPhysic) {
 }
 
 void Character::createCharacterBySpine() {
-  skeletonCharacter = spine::SkeletonAnimation::createWithJsonFile("bird.json", "bird.atlas", RATIO_SCALE_CHARACTER);
+  skeletonCharacter = spine::SkeletonAnimation::createWithJsonFile("bird.json", "bird.atlas", RATIO_SCALE_CHARACTER_SKELETON);
   skeletonCharacter->setPosition(Vec2(0,0));
   skeletonCharacter->setAnimation(0, "walk", true);
   this->addChild(skeletonCharacter);

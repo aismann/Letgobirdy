@@ -51,7 +51,7 @@ void GameManager::update(float dt) {
   
   /// Barrier update
   if(!arrayBarrier.empty()) {
-    for(std::vector<Barrier*>::iterator it = arrayBarrier.begin(); it != arrayBarrier.end(); ++it) {      
+    for(std::vector<Barrier*>::iterator it = arrayBarrier.begin(); it != arrayBarrier.end(); ++it) {
       if(!(*it)->getIsPhysicBody()) {
         if(character->getPositionY() > ((*it)->getPositionY())) {
           character->setNextPositionY((*it)->getPositionY());
@@ -66,28 +66,28 @@ void GameManager::update(float dt) {
   if(!arrayMonster.empty()) {
     for(std::vector<Monster*>::iterator it = arrayMonster.begin(); it != arrayMonster.end(); ++it) {
       (*it)->update(dt);
-//      if(character->checkDieCharacter((*it)->getPosition())) {
-//        isGameOver = true;
-//        character->dieCharacter();
-//      }
+      if(character->checkDieCharacter((*it)->getPosition())) {
+        isGameOver = true;
+        character->dieCharacter();
+      }
     }
   }
 }
 
 void GameManager::setVisibleForBarrierAndMonster() {
   for(std::vector<Barrier*>::iterator it = arrayBarrier.begin(); it != arrayBarrier.end(); ++it) {
-    if((*it)->getPositionY() > character->getPositionY() + HEIGHT_DISTANCE * 5) {
+    if((*it)->getPositionY() > character->getPositionY() + HEIGHT_DISTANCE_BETWEEN_BARRIER * 5) {
       (*it)->setVisible(false);
-    } else if((*it)->getPositionY() < character->getPositionY() - HEIGHT_DISTANCE *1.5) {
+    } else if((*it)->getPositionY() < character->getPositionY() - HEIGHT_DISTANCE_BETWEEN_BARRIER *1.5) {
       arrayBarrier.erase(it);
     } else {
       (*it)->setVisible(true);
     }
   }
   for(std::vector<Monster*>::iterator it = arrayMonster.begin(); it != arrayMonster.end(); ++it) {
-    if((*it)->getPositionY() > character->getPositionY() + HEIGHT_DISTANCE * 5) {
+    if((*it)->getPositionY() > character->getPositionY() + HEIGHT_DISTANCE_BETWEEN_BARRIER * 5) {
       (*it)->setVisible(false);
-    } else if((*it)->getPositionY() < character->getPositionY() - HEIGHT_DISTANCE*1.5 ) {
+    } else if((*it)->getPositionY() < character->getPositionY() - HEIGHT_DISTANCE_BETWEEN_BARRIER*1.5 ) {
       arrayMonster.erase(it);
     } else {
       (*it)->setVisible(true);

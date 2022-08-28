@@ -24,8 +24,6 @@ public:
   static Barrier* createSpriteWithFileName(const char* file);
   static Barrier* createSpriteWithFrameName(const char* file);
   void initBodyWithPhysicManager(b2World* physicWorld, const Vec2& position);
-  virtual void onEnter();
-  virtual void onExit();
   void runActionWhenContactWithCharacter();
   void activeUpdatePhysic();
   void makeAsPassedBarrier();

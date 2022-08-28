@@ -16,18 +16,18 @@
 #include "GameDelegate.h"
 USING_NS_CC;
 
-class Character : public Node {
+class Character: public Node {
 private:
   spine::SkeletonAnimation* skeletonCharacter;
   b2World* worldPhysicManger;
   b2Body * bodyCharacter;
   float velocity;
-  int runningDirection;
+  float currentPositionYBeforeJump;
   float nextPositionY;
+  int runningDirection;
   GameDelegate* delegate;
 public:
   int status;
-  float currentPositionYBeforeJump;
 public:
   Character();
   virtual ~Character();
@@ -35,21 +35,19 @@ public:
   void createCharacterBySpine();
   void defineBodyCharacter(b2World* worldPhysic);
   
+  void setDelegate(GameDelegate* mDelegate);
   void setNextPositionY(float yPosition);
   void saveCurrentPositionYBeforeJump();
   
-  
   void singleJump();
   void doubleJump();
+  bool checkDieCharacter(const Vec2& position);
   
   /// Contact
   void contactWithGround();
   void contactWithWall();
   void contactWithBarrier(bool isNextLevel);
   void dieCharacter();
-  bool checkDieCharacter(const Vec2& position);
-
-  void setDelegate(GameDelegate* mDelegate);
 };
 
 #endif /* Character_h */

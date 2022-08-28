@@ -31,9 +31,6 @@ public:
   virtual bool init();
   void update(float dt);
   void createMonstersAndBarriersLevel(int level, int counterMonster, float startPointY, int barrierIndexWithNoMonster);
-  
-  virtual void onEnter();
-  virtual void onExit();
   void initPhysicForMap(b2World* physic);
   void initPhysicLanding();
   int randomMonsterType();

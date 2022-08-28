@@ -67,7 +67,7 @@ int MonsterLayer::randomMonsterType(){
 }
 
 
-void MonsterLayer::createMonstersAndBarriersLevel(int level, int counterMonster, float startPointY,int barrierIndexWithNoMonster) {
+void MonsterLayer::createMonstersAndBarriersLevel(int level, int counterMonster, float startPointY, int barrierIndexWithNoMonster) {
   srand( (unsigned)time(NULL) );
   int intWidth1 = visibleSize.width*3/4;
   int intWidth2 = visibleSize.width/4;
@@ -76,10 +76,10 @@ void MonsterLayer::createMonstersAndBarriersLevel(int level, int counterMonster,
   int randomStaticMonsterType2 = rand() % 5+6;
   int hiddenIndex = rand() % 7+3;
   
-  float velocityMonster = DELTA_VELOCITY_MONSTER;
+  float velocityMonster = VELOCITY_MONSTER;
   if(level >= 2) {
     hiddenIndex = 1000;
-    velocityMonster = DELTA_VELOCITY_MONSTER + 0.4f;
+    velocityMonster = VELOCITY_MONSTER + 0.4f;
   }
   
   for (int i = 0; i < counterMonster; i++) {
@@ -87,7 +87,7 @@ void MonsterLayer::createMonstersAndBarriersLevel(int level, int counterMonster,
     int randompositionX2 = intWidth2 + (rand() % (int)(visibleSize.width - intWidth2));
     
     Barrier* barrier = Barrier::createSpriteWithFileName("tree.png");
-    barrier->setPosition(Vec2(visibleSize.width/2,startPointY + HEIGHT_DISTANCE +i*HEIGHT_DISTANCE));
+    barrier->setPosition(Vec2(visibleSize.width/2,startPointY + HEIGHT_DISTANCE_BETWEEN_BARRIER +i*HEIGHT_DISTANCE_BETWEEN_BARRIER));
     this->addChild(barrier,200);
     int monsterType = this->randomMonsterType();
     
@@ -98,8 +98,8 @@ void MonsterLayer::createMonstersAndBarriersLevel(int level, int counterMonster,
       } else{
         monster->setPosition(Vec2(randompositionX2, barrier->getPositionY()));
       }
-      if(velocityMonster + i/40 > VELOCITY_CHARACTER){
-        velocityMonster = VELOCITY_CHARACTER - i/40;
+      if(velocityMonster + i/40 > RUN_VELOCITY_CHARACTER){
+        velocityMonster = RUN_VELOCITY_CHARACTER - i/40;
       }
       monster->setVelocity(velocityMonster + i/40);
       monster->setMonsterType(monsterType);
@@ -174,19 +174,10 @@ void MonsterLayer::initPhysicLanding() {
   b2Body* bodyRightLand = physicWorld->CreateBody(&landRightBodyDef);
   bodyRightLand->CreateFixture(&WallRightFixDef);
   
-  TestBody* testBody = new TestBody();
-  physicWorld->SetDebugDraw(testBody);
+  //  TestBody* testBody = new TestBody();
+  //  physicWorld->SetDebugDraw(testBody);
   physicWorld->SetAllowSleeping(false);
 }
-
-void MonsterLayer::onEnter() {
-  Layer::onEnter();
-}
-
-void MonsterLayer::onExit() {
-  Layer::onExit();
-}
-
 
 
 

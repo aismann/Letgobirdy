@@ -14,9 +14,9 @@
             filePath = "../Classes/Layer/MainLayer.cpp"
             startingColumnNumber = "19"
             endingColumnNumber = "19"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "MainLayer::update(dt)"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "MainLayer::handleClickHomeAndSoundButton(pSender)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -18,9 +18,7 @@ private:
   GameDelegate* delegate;
 public:
   GameContactListener();
-  void BeginContact(b2Contact* contact); // When we first contact
-  void EndContact(b2Contact* contact); // When we end contact
-  void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
+  void BeginContact(b2Contact* contact);
   void setDelegate(GameDelegate* mDelegate);
   void processCollisionPlayerVsObject(b2Body* characterBody, b2Body* objectBody);
 };

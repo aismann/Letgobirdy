@@ -23,7 +23,6 @@ bool HomeScene::init() {
   if(!Layer::init()) {
     return false;
   }
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musicgame.mp3",true);
   winSize = Director::getInstance()->getWinSize();
   auto bg = Sprite::create("bg_start.png");
   bg->setPosition(Vec2(winSize.width/2, winSize.height/2));
@@ -46,9 +45,11 @@ bool HomeScene::init() {
 }
 
 void HomeScene::eventClickPlay(Ref* pSender) {
-  int  tag =  ((ui::Button*)pSender)->getTag();
-  CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("soundClick.mp3");
-  if(tag == TAG_BTN_PLAY){
+  if(UserDefault::getInstance()->getBoolForKey("SOUND_TURN_ON", true)) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("soundClick.mp3");
+  }
+  int tag = ((ui::Button*)pSender)->getTag();
+  if(tag == TAG_BTN_PLAY) {
     Director::getInstance()->replaceScene(GameScene::createGameScene());
   }
 }

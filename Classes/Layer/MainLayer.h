@@ -1,5 +1,10 @@
-
-
+//
+//  MainLayer.h
+//  Letgobirdy
+//
+//  Created by Harry Nguyen on 12/13/16.
+//
+//
 #include "cocos2d.h"
 #include "MonsterLayer.h"
 #include "GameContactListener.h"
@@ -12,10 +17,7 @@ USING_NS_CC;
 
 class MainLayer : public cocos2d::Layer, GameDelegate {
 private:
-  int barrierIndexWithNoMonster;
-  int numberScreens;
   Size visibleSize;
-  Vec2 origin;
   Vec2 positionStartBarrier;
   MonsterLayer* monsterLayer;
   b2World* physicWorld;
@@ -26,13 +28,15 @@ private:
   cocos2d::ui::Button* buttonSoundOff;
   cocos2d::ui::Button* buttonHome;
   Label* lbScore;
-
+  
   GameManager* gameManager;
   float heightCenterScreen;
-  int gameScore;
   bool isTouchAvailable;
+  int gameScore;
+  int barrierIndexWithNoMonster;
+  int numberScreens;
 private:
-  void updateUIWhenCharacterJumpSuccess();
+  void updateUIWhenCharacterDoubleJumpSuccess();
 public:
   virtual bool init();
   CREATE_FUNC(MainLayer);
@@ -48,14 +52,15 @@ public:
   
   bool onTouchOneByOneBegan(Touch* mTouch, Event* pEvent);
   
-  void createHomeAndSoundButtonOnTheRightScreen();
-  void btnClickHomeAndSoundButton(Ref* pSender);
+  void createUIAfterClickPlayButton();
   void createGameOverLayer();
-  void btnClickButtonOnGameOverPopUp(Ref* pSender);
+  void handleClickPlayGameButton(Ref* pSender);
+  void handleClickButtonOnGameOverPopUp(Ref* pSender);
+  void handleClickHomeAndSoundButton(Ref* pSender);
   
-  
-  virtual void characterJumpSuccess();
-  virtual void characterJumpFailed();
+  virtual void characterDoubleJumpSuccess();
+  virtual void characterDoubleJumpFailed();
   virtual void blockTouchWhileContactWithWall();
+  virtual void gameOver();
 };
 

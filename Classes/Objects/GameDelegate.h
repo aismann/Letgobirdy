@@ -10,10 +10,10 @@
 
 class GameDelegate {
 public:
-  virtual void characterJumpSuccess() = 0;
-  virtual void characterJumpFailed() = 0;
+  virtual void characterDoubleJumpSuccess() = 0;
+  virtual void characterDoubleJumpFailed() = 0;
   virtual void blockTouchWhileContactWithWall() = 0;
+  virtual void gameOver() = 0;
 };
-
 
 #endif /* GameDelegate_h */
